@@ -1,0 +1,42 @@
+SELECT
+  product.name,
+  MIN(qwe.sum) AS MIN_qty,
+  shop.name
+FROM (SELECT
+        r.shop_id     AS id,
+        pd.product_id AS product,
+        Sum(pd.qty)   AS sum
+      FROM products AS pd
+        INNER JOIN receipts AS r
+          ON pd.receipts_id = r.id
+      GROUP BY r.shop_id, pd.product_id) AS qwe
+  INNER JOIN shop ON shop.id_shop = qwe.id
+  INNER JOIN product ON product.id_product = qwe.product
+GROUP BY shop.id_shop;
+
+SELECT
+  MAX(qwe.sum) AS MIN_qty,
+  qwe.day,
+  product.name
+FROM (SELECT
+        r.week_day    AS day,
+        pd.product_id AS product,
+        Sum(pd.qty)   AS sum
+      FROM products AS pd
+        INNER JOIN receipts AS r
+          ON pd.receipts_id = r.id
+        INNER JOIN product AS p
+          ON pd.product_id = p.id_product
+      GROUP BY r.week_day, pd.product_id) AS qwe
+  INNER JOIN product ON product.id_product = qwe.product
+GROUP BY qwe.day;
+
+
+SELECT
+  cast(strftime('%H', date) AS TEXT) || ':' || cast(strftime('%M', date) / 30 * 30 AS TEXT) AS time,
+  items_qty                                                                                 AS items,
+  total_price,
+  shop.name
+FROM receipts
+  INNER JOIN shop ON receipts.shop_id = shop.id_shop
+GROUP BY time;

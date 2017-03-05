@@ -1,0 +1,62 @@
+Структура файлу data.json
+ 
+[{u'date': Timestamp('2015-10-01 12:18:08'),						Дата та час чека
+ u'id': 55076804,									Id чеку
+ u'items_qty': 5.0,									Кількість товарів в чеку
+ u'products': [{									Товари в чеку
+u'order_no': u'1',									Номер позицію товару в чеку
+u'price': 19.28,									Ціна товару
+u'product__name': u'\u041a\u043e\u043a\u0430 \u041a\u043e\u043b\u0430 2\u043b ',	Назва товару
+u'product_id': 2849810,									Id товару
+u'qty': 1.0,										Кількість одиниць товару
+u'total_price': 19.28}, 								Сума по товару
+      	...
+        ],
+u'shop__name': u'Shop \u211603',							Назва магазину
+u'shop_id': 601,									Id магазину
+u'total_price': 62.490000000000002,							Сумарна вартість чека
+u'week_day': 3},									День тижня (0-понеділок)
+...
+]
+
+Згрупувати по днях продажі по кожному магазину.
+
+Вивести по кожному дню, який товар найбільше продавався (qty, total_price).
+
+Згрупувати всі продажі за весь період по годинах з інтервалом в пів години.
+
+Знайти в кожному магазині, який товар найменше продавався.
+
+
+
+
+
+SELECT
+  product.name,
+  MIN(qwe.sum) AS MIN_qty,
+  shop.name
+FROM (SELECT
+        r.shop_id     AS id,
+        pd.product_id AS product,
+        Sum(pd.qty)   AS sum
+      FROM products AS pd
+        INNER JOIN receipts AS r
+          ON pd.receipts_id = r.id
+      GROUP BY r.shop_id, pd.product_id) AS qwe
+  INNER JOIN shop ON shop.id_shop = qwe.id
+  INNER JOIN product ON product.id_product = qwe.product
+GROUP BY shop.id_shop;
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+

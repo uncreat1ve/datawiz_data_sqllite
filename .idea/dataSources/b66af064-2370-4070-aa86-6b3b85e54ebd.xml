@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="datawizDB">
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <table id="3" parent="2" name="product"/>
+    <table id="4" parent="2" name="products"/>
+    <table id="5" parent="2" name="receipts"/>
+    <table id="6" parent="2" name="shop"/>
+    <column id="7" parent="3" name="id_product">
+      <DataType>INTEGER(0,-1)|4</DataType>
+    </column>
+    <column id="8" parent="3" name="name">
+      <Position>1</Position>
+      <DataType>VARCHAR(0,-1)|12</DataType>
+    </column>
+    <key id="9" parent="3">
+      <ColNames>id_product</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="10" parent="4" name="receipts_id">
+      <DataType>INTEGER(0,-1)|4</DataType>
+    </column>
+    <column id="11" parent="4" name="order_no">
+      <Position>1</Position>
+      <DataType>INTEGER(0,-1)|4</DataType>
+    </column>
+    <column id="12" parent="4" name="product_id">
+      <Position>2</Position>
+      <DataType>INTEGER(0,-1)|4</DataType>
+    </column>
+    <column id="13" parent="4" name="qty">
+      <Position>3</Position>
+      <DataType>REAL(0,-1)|6</DataType>
+    </column>
+    <column id="14" parent="4" name="price">
+      <Position>4</Position>
+      <DataType>REAL(0,-1)|6</DataType>
+    </column>
+    <foreign-key id="15" parent="4" name="#FAKE_products_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>receipts_id</ColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <RefTableName>receipts</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <foreign-key id="16" parent="4" name="#FAKE_products_2">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>product_id</ColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <RefTableName>product</RefTableName>
+      <RefColNames>id_product</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="17" parent="5" name="id">
+      <DataType>INTEGER(0,-1)|4</DataType>
+    </column>
+    <column id="18" parent="5" name="date">
+      <Position>1</Position>
+      <DataType>DATETIME(0,-1)|12</DataType>
+    </column>
+    <column id="19" parent="5" name="items_qty">
+      <Position>2</Position>
+      <DataType>INTEGER(0,-1)|4</DataType>
+    </column>
+    <column id="20" parent="5" name="week_day">
+      <Position>3</Position>
+      <DataType>INTEGER(0,-1)|4</DataType>
+    </column>
+    <column id="21" parent="5" name="total_price">
+      <Position>4</Position>
+      <DataType>REAL(0,-1)|6</DataType>
+    </column>
+    <column id="22" parent="5" name="shop_id">
+      <Position>5</Position>
+      <DataType>INTEGER(0,-1)|4</DataType>
+    </column>
+    <key id="23" parent="5">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="24" parent="5" name="#FAKE_receipts_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>shop_id</ColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <RefTableName>shop</RefTableName>
+      <RefColNames>id_shop</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="25" parent="6" name="id_shop">
+      <DataType>INTEGER(0,-1)|4</DataType>
+    </column>
+    <column id="26" parent="6" name="name">
+      <Position>1</Position>
+      <DataType>VARCHAR(0,-1)|12</DataType>
+    </column>
+    <key id="27" parent="6">
+      <ColNames>id_shop</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

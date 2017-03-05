@@ -1,0 +1,8 @@
+SELECT ."Продукт", "Продажи"."Дата", SUM("Продажи"."Количество") 
+FROM "Продажи"
+INNER JOIN (SELECT "Продукт", MAX("Дата") AS "Дата" FROM "Продажи" GROUP BY "Продукт") AS "Последние Продажи"
+ON "Последние Продажи"."Продукт" = "Продажи"."Продукт" AND "Последние Продажи"."Дата" = "Продажи"."Дата"
+GROUP BY "Продажи"."Продукт", "Продажи"."Дата"
+
+SELECT receipts.shop_id, 
+(SELECT products.product_id,  MIN(products.qty) from products GROUP BY products.product_id)

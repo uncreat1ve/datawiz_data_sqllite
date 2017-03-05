@@ -1,0 +1,6 @@
+SELECT shop.name, products.product_id
+FROM shop, products
+WHERE products.product_id = (SELECT products.product_id,  MIN(products.qty)
+from products
+INNER JOIN receipts ON receipts.id = products.receipts_id)
+GROUP BY shop.name;
